@@ -166,24 +166,95 @@ public class sudoku_solver {
         }
         System.out.println();
 
+        for(int i = 21; i < 30; i++){
+            System.out.print(candidatelist.get(i));
+        }
+        System.out.println();
+
+        for(int i = 31; i < 40; i++){
+            System.out.print(candidatelist.get(i));
+        }
+        System.out.println();
 
 
-        narrow_down(candidatelist, candidateedit, board);
-        //int[] box1 = {11,12,13,21,22,23,31,32,33};
-        //int[] box2 = {14,15,16,24,25,26,34,35,36};
-        //int[] box3 = {17,18,19,27,28,29,37,38,39};
-        //int[] box4 = {41,42,43,51,52,53,61,62,63};
-        //int[] box5 = {44,45,46,54,55,56,64,65,66};
-        //int[] box6 = {47,48,49,57,58,59,67,68,69};
-        //int[] box7 = {71,72,73,81,82,83,91,92,93};
-        //int[] box8 = {74,75,76,84,85,86,94,95,96};
-        //int[] box9 = {77,78,79,87,88,89,97,98,99};
-        //box_nd(box1, num, list, e, b);
+
+        //narrow_down(candidatelist, candidateedit, board);
+        int[] box1 = {11,12,13,21,22,23,31,32,33};
+        int[] box2 = {14,15,16,24,25,26,34,35,36};
+        int[] box3 = {17,18,19,27,28,29,37,38,39};
+        int[] box4 = {41,42,43,51,52,53,61,62,63};
+        int[] box5 = {44,45,46,54,55,56,64,65,66};
+        int[] box6 = {47,48,49,57,58,59,67,68,69};
+        int[] box7 = {71,72,73,81,82,83,91,92,93};
+        int[] box8 = {74,75,76,84,85,86,94,95,96};
+        int[] box9 = {77,78,79,87,88,89,97,98,99};
+        
+        ArrayList<Integer> nu = new ArrayList<Integer>();
+        //box_nd(box1, nu, candidatelist, candidateedit, board);
         //box_nd(box2, num, list, e, b);
 
         //ArrayList<Integer> nu = new ArrayList<Integer>();
         //box_nd(box3, nu, candidatelist, candidateedit, board);
-        /*int n;
+        int n;
+        for(int i : box1){
+            int v = i % 10;
+            int h = (i - v) / 10;
+            if(board[h-1][v-1] != '-'){
+                n = (int) board[h-1][v-1] - '0';
+                nu.add(n);
+            }
+        }
+        System.out.println(nu);
+        for(int i : box1){
+            int v = i % 10;
+            int h = (i - v) / 10;
+            if(board[h-1][v-1] == '-'){
+                candidateedit = candidatelist.get(i);
+                for(int j = 0; j < nu.size(); j++){
+                    for(int k = 0; k < candidateedit.size(); k++){
+                        if(nu.get(j) == candidateedit.get(k)){
+                            candidateedit.remove(k);
+                        }
+                    }                    
+                }
+                System.out.println(candidatelist.get(i));
+                candidatelist.set(i, candidateedit);
+                System.out.println(candidatelist.get(i));
+            }
+        }
+        nu.clear();
+        //candidateedit.clear();
+
+        /*for(int i : box2){
+            int v = i % 10;
+            int h = (i - v) / 10;
+            if(board[h-1][v-1] != '-'){
+                n = (int) board[h-1][v-1] - '0';
+                nu.add(n);
+            }
+        }
+        System.out.println(nu);
+        for(int i : box2){
+            int v = i % 10;
+            int h = (i - v) / 10;
+            if(board[h-1][v-1] == '-'){
+                System.out.println(candidatelist.get(i));
+                candidateedit = candidatelist.get(i);
+                for(int j = 0; j < nu.size(); j++){
+                    for(int k = 0; k < candidateedit.size(); k++){
+                        if(nu.get(j) == candidateedit.get(k)){
+                            candidateedit.remove(k);
+                        }
+                    }                    
+                }
+                
+                candidatelist.set(i, candidateedit);
+                System.out.println(candidatelist.get(i));
+            }
+        }
+        nu.clear();
+        candidateedit.clear();
+
         for(int i : box3){
             int v = i % 10;
             int h = (i - v) / 10;
@@ -205,9 +276,14 @@ public class sudoku_solver {
                         }
                     }                    
                 }
+                System.out.println(candidatelist.get(i));
                 candidatelist.set(i, candidateedit);
+                System.out.println(candidatelist.get(i));
             }
-        }*/
+        }
+        nu.clear();
+        candidateedit.clear();*/
+
 
 
 
@@ -215,6 +291,17 @@ public class sudoku_solver {
             System.out.print(candidatelist.get(i));
         }
         System.out.println();
+
+        for(int i = 21; i < 30; i++){
+            System.out.print(candidatelist.get(i));
+        }
+        System.out.println();
+
+        for(int i = 31; i < 40; i++){
+            System.out.print(candidatelist.get(i));
+        }
+        System.out.println();
+
 
         for (int i = 0; i < board.length; i++){
             for (int j = 0; j < board[i].length; j++) {
@@ -238,7 +325,9 @@ public class sudoku_solver {
     public static ArrayList<ArrayList> narrow_down(ArrayList<ArrayList> l, ArrayList<Integer> e, char[][] b){
         ArrayList<ArrayList> list = new ArrayList<ArrayList>();
         list = l;
-        ArrayList<Integer> num = new ArrayList<Integer>(); 
+        ArrayList<Integer> num = new ArrayList<Integer>();
+        ArrayList<Integer> edit = new ArrayList<Integer>();
+        //edit = e;  
         //char[][] puzzle = b;
         //boolean sfsg = true;
         //boolean notok = true;
@@ -267,12 +356,32 @@ public class sudoku_solver {
         int[] box7 = {71,72,73,81,82,83,91,92,93};
         int[] box8 = {74,75,76,84,85,86,94,95,96};
         int[] box9 = {77,78,79,87,88,89,97,98,99};
-        box_nd(box1, num, list, e, b);
+        box_nd(box1, num, list, edit, b);
         num.clear();
-        box_nd(box2, num, list, e, b);
+        //edit.clear();
+        edit = new ArrayList<Integer>();
+        //edit = e;
+        box_nd(box2, num, list, edit, b);
         num.clear();
-        box_nd(box3, num, list, e, b);
-        //num.clear();
+        //edit.clear();
+        edit = new ArrayList<Integer>();
+        //edit = e;
+        box_nd(box3, num, list, edit, b);
+        //edit = box_nd(box3, num, list, e, b);
+        //System.out.println(edit);
+        /*for(int i : box3){
+            int v = i % 10;
+            int h = (i - v) / 10;
+            if(b[h-1][v-1] == '-'){
+                
+                //System.out.println(e);
+                l.set(i, edit);
+            }
+        }*/
+        num.clear();
+        //edit.clear();
+        edit = new ArrayList<Integer>();
+        //edit = e;
         //box_nd(box4, num, list, e, b);
         //box_nd(box5, num, list, e, b);
         //box_nd(box6, num, list, e, b);
@@ -307,7 +416,7 @@ public class sudoku_solver {
 
         return list;
     }
-    public static void box_nd(int[] bx, ArrayList<Integer> num, ArrayList<ArrayList> l, ArrayList<Integer> e, char[][] b){
+    public static ArrayList<Integer> box_nd(int[] bx, ArrayList<Integer> num, ArrayList<ArrayList> l, ArrayList<Integer> e, char[][] b){
         int n;
         for(int i : bx){
             int v = i % 10;
@@ -323,6 +432,8 @@ public class sudoku_solver {
             int h = (i - v) / 10;
             if(b[h-1][v-1] == '-'){
                 e = l.get(i);
+                System.out.println(l.get(i));
+                System.out.println(i);
                 for(int j = 0; j < num.size(); j++){
                     for(int k = 0; k < e.size(); k++){
                         if(num.get(j) == e.get(k)){
@@ -330,10 +441,11 @@ public class sudoku_solver {
                         }
                     }                    
                 }
+                //System.out.println(e);
                 l.set(i, e);
             }
         }
+        System.out.println(e);
+        return e;
     }
-    
-
 }
